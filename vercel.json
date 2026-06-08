@@ -1,12 +1,9 @@
 {
   "version": 2,
-  "name": "elevating-nations",
-  "public": true,
   "buildCommand": "npm install",
   "outputDirectory": "public",
   "env": {
-    "NODE_ENV": "production",
-    "WHATSAPP_PHONE": "@whatsapp_phone"
+    "NODE_ENV": "production"
   },
   "functions": {
     "api/**/*.js": {
@@ -27,19 +24,8 @@
       "destination": "/contact.html"
     },
     {
-      "source": "/:path((?!api/|.*\\..*).*)",
+      "source": "/:path*",
       "destination": "/index.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/api/:path*",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate"
-        }
-      ]
     }
   ]
 }
