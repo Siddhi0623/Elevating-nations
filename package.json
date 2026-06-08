@@ -1,0 +1,31 @@
+{
+  "name": "elevating-nations",
+  "version": "1.0.0",
+  "description": "Elevating Nations CIC - Safe homes, Real support, Fresh starts",
+  "main": "api/enquiry.js",
+  "scripts": {
+    "start": "cd backend && npm start",
+    "dev": "cd backend && npm run dev",
+    "install-backend": "cd backend && npm install"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.7",
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "body-parser": "^1.20.2",
+    "express-validator": "^7.0.0",
+    "axios": "^1.6.0"
+  },
+  "engines": {
+    "node": "18.x"
+  },
+  "keywords": [
+    "housing",
+    "support",
+    "charity",
+    "community"
+  ],
+  "author": "Elevating Nations CIC",
+  "license": "MIT"
+}

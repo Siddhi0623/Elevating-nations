@@ -1,0 +1,51 @@
+{
+  "version": 2,
+  "name": "elevating-nations",
+  "public": true,
+  "buildCommand": "npm install",
+  "outputDirectory": "public",
+  "env": {
+    "NODE_ENV": "production",
+    "SMTP_HOST": "@smtp_host",
+    "SMTP_PORT": "@smtp_port",
+    "SMTP_USER": "@smtp_user",
+    "SMTP_PASSWORD": "@smtp_password",
+    "SMTP_FROM": "@smtp_from",
+    "ADMIN_EMAIL": "@admin_email",
+    "WHATSAPP_PHONE": "@whatsapp_phone"
+  },
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api/:path*"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
+    },
+    {
+      "source": "/contact.html",
+      "destination": "/contact.html"
+    },
+    {
+      "source": "/:path((?!api/|.*\\..*).*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    }
+  ]
+}
