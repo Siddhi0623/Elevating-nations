@@ -23,8 +23,14 @@ function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-// Send email notification
+// Send email notification (optional - requires SMTP credentials)
 async function sendEmailNotification(submission) {
+  // Skip email if credentials not provided
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASSWORD) {
+    console.log('⚠️  Email credentials not configured - skipping email');
+    return false;
+  }
+
   try {
     const emailHTML = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

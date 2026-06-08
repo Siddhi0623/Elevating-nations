@@ -51,17 +51,10 @@ After deploying, go to your Vercel project dashboard:
 
 1. **Navigate to:** Settings → Environment Variables
 
-2. **Add these variables:**
+2. **Add only this variable:**
 
 ```
-SMTP_HOST = smtp.gmail.com
-SMTP_PORT = 587
-SMTP_USER = xesiddhikale51@gmail.com
-SMTP_PASSWORD = xzpc jmho kbkj zvei
-SMTP_FROM = xesiddhikale51@gmail.com
-ADMIN_EMAIL = xesiddhikale51@gmail.com
 WHATSAPP_PHONE = 9422554886
-NODE_ENV = production
 ```
 
 3. **Click:** "Save"
@@ -70,6 +63,8 @@ NODE_ENV = production
    - Go to: Deployments
    - Click the three dots on latest deployment
    - Select: "Redeploy"
+
+**Note:** Email notifications are disabled for security. Only WhatsApp notifications are enabled.
 
 ---
 
