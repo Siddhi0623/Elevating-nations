@@ -42,25 +42,48 @@
   // ---- Reveal handled by pure CSS animation (no JS dependency) ----
 
   // ---- Enquiry form ----
+  console.log('🔍 Initializing form handler...');
+
   var form = document.getElementById('enquiryForm');
   var success = document.getElementById('formSuccess');
+
+  console.log('📋 Form found:', !!form);
+  console.log('✅ Success element found:', !!success);
+
   if (form) {
     form.addEventListener('submit', function (e) {
+      console.log('📤 Form submit event triggered');
       e.preventDefault();
+
       var ok = true;
       var submitBtn = form.querySelector('button[type="submit"]');
       var originalBtnText = submitBtn.innerHTML;
 
+      console.log('🔍 Validating required fields...');
+
+      // Validate required fields
       ['f-name', 'f-email', 'f-msg'].forEach(function (id) {
         var f = document.getElementById(id);
-        if (!f.value.trim() || (f.type === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.value))) {
-          f.style.borderColor = 'var(--accent-deep)';
+        var isEmpty = !f.value.trim();
+        var isInvalidEmail = f.type === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.value);
+
+        if (isEmpty || isInvalidEmail) {
+          console.log('❌ Field invalid:', id, '- Empty:', isEmpty, '- Bad email:', isInvalidEmail);
+          f.style.borderColor = '#8B0000'; // Red color
           ok = false;
         } else {
+          console.log('✅ Field valid:', id);
           f.style.borderColor = '';
         }
       });
-      if (!ok) return;
+
+      if (!ok) {
+        console.log('❌ Validation failed - please fill all required fields');
+        alert('Please fill all required fields with valid data');
+        return;
+      }
+
+      console.log('✅ Validation passed');
 
       // Disable button and show loading state
       submitBtn.disabled = true;
@@ -76,6 +99,8 @@
         message: document.getElementById('f-msg').value.trim()
       };
 
+      console.log('📨 Sending form data:', formData);
+
       // Send to backend API
       fetch('/api/enquiry', {
         method: 'POST',
@@ -85,25 +110,49 @@
         body: JSON.stringify(formData)
       })
       .then(function (response) {
-        if (!response.ok) throw new Error('Network response was not ok');
+        console.log('📨 Response received, status:', response.status);
+        if (!response.ok) {
+          throw new Error('Server returned status ' + response.status);
+        }
         return response.json();
       })
       .then(function (data) {
+        console.log('✅ Server response:', data);
         if (data.success) {
+          console.log('🎉 Form submitted successfully!');
+          console.log('📧 Check email and WhatsApp for notification');
+
+          // Hide form and show success message
           form.style.display = 'none';
-          success.classList.add('show');
+          if (success) {
+            success.style.display = 'block';
+            success.classList.add('show');
+          }
+
           // Reset form for future use
           form.reset();
+
+          // Optional: Scroll to success message
+          setTimeout(function() {
+            success.scrollIntoView({ behavior: 'smooth' });
+          }, 100);
         } else {
           throw new Error(data.message || 'Submission failed');
         }
       })
       .catch(function (error) {
-        console.error('Error:', error);
-        alert('Error submitting form. Please try again or email us directly.');
+        console.error('❌ Error:', error);
+        console.error('Error message:', error.message);
+
+        var errorMsg = 'Error submitting form: ' + error.message + '\n\nPlease check your internet connection and try again.';
+        alert(errorMsg);
+
+        // Reset button state
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalBtnText;
       });
     });
+  } else {
+    console.warn('⚠️ Enquiry form not found on this page');
   }
 })();
