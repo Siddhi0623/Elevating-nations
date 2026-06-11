@@ -678,14 +678,6 @@ body::after{
 /* Right-column media — identical to .hero__media */
 .subhero__media{ position:relative; }
 
-/* Ghost arch outline behind image — identical to .hero__media::before */
-.subhero__media::before{
-  content:""; position:absolute; z-index:-1;
-  inset:-22px -22px 60px 34px;
-  border:1px solid var(--line);
-  border-radius:var(--arch) var(--arch) 18px 18px;
-}
-
 /* Arch image — identical to .hero__img */
 .subhero__img{
   width:100%;
