@@ -296,13 +296,6 @@ body::after{
 .hero__badge p{ margin:0; font-size:.86rem; line-height:1.45; color:var(--ink-soft); }
 .hero__badge b{ color:var(--ink); display:block; font-weight:600; margin-bottom:2px; }
 
-/* decorative arch ghost behind hero img */
-.hero__media::before{
-  content:""; position:absolute; z-index:-1;
-  inset:-22px -22px 60px 34px;
-  border:1px solid var(--line);
-  border-radius:var(--arch) var(--arch) 18px 18px;
-}
 
 /* ---------- Marquee tagline strip ---------- */
 .strip{ background:var(--ink); color:var(--bone); overflow:hidden; }
